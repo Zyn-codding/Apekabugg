@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>NXT CORE | Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,10,40,0.9) 100%);
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 480px;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(15, 15, 25, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 40px 32px;
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 32px;
+      font-weight: 800;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .logo h1 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a855f7, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 5px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .welcome h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 8px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(138, 43, 226, 0.3);
+      border-radius: 16px;
+      color: white;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #a855f7;
+      box-shadow: 0 0 10px rgba(168,85,247,0.3);
+    }
+
+    .signin-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+      border: none;
+      border-radius: 16px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .signin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(138,43,226,0.5);
+    }
+
+    .buy-section {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .buy-section p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+
+    .buy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(138,43,226,0.5);
+      padding: 10px 24px;
+      border-radius: 30px;
+      color: #c084fc;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .buy-btn:hover {
+      background: rgba(138,43,226,0.2);
+      border-color: #a855f7;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .social-links a {
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #a855f7;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      border-left: 4px solid #8a2be2;
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      font-size: 13px;
+      color: white;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="https://files.catbox.moe/orsnsv.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="logo">
+        <div class="logo-icon">NX</div>
+        <h1>NXT CORE</h1>
+        <p>Unlock Premium Access</p>
+      </div>
+
+      <div class="welcome">
+        <h2>Welcome Back</h2>
+        <p>Sign in to continue</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="username" placeholder="Enter your username" autocomplete="off" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="signin-btn">Sign In</button>
+      </form>
+
+      <div class="buy-section">
+        <p>Don't have an account?</p>
+        <a href="https://t.me/ZetsuTheDev" target="_blank" class="buy-btn">
+          <i class="fas fa-crown"></i> Buy Access
+        </a>
+      </div>
+
+      <div class="footer">
+        <div class="social-links">
+          <a href="https://t.me/ZetsuTestimoni" target="_blank"><i class="fab fa-telegram"></i></a>
+          <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
+        </div>
+        <p>© 2026 NXT CORE</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" style="display: none;"></div>
+
+  <script>
+    const ACCOUNTS = [
+      { username: "zamxz", password: "zamxz123", role: "RESELLER", expired: "2026-04-24" },
+      { username: "admin", password: "admin123", role: "ADMIN", expired: "2027-12-31" },
+      { username: "user", password: "user123", role: "USER", expired: "2026-05-15" },
+      { username: "vip", password: "vip123", role: "VIP", expired: "2026-06-01" }
+    ];
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+      toast.style.display = 'flex';
+      toast.style.background = isError ? '#8B0000' : '#1a1a2e';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!username || !password) {
+        showToast("Isi username dan password!", true);
+        return false;
+      }
+
+      const found = ACCOUNTS.find(acc => 
+        acc.username.toLowerCase() === username.toLowerCase() && 
+        acc.password === password
+      );
+
+      if (found) {
+        showToast(`Welcome back, ${found.username}!`, false);
+        localStorage.setItem('nxt_logged_in', 'true');
+        localStorage.setItem('nxt_user', found.username);
+        localStorage.setItem('nxt_role', found.role);
+        localStorage.setItem('nxt_expired', found.expired);
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
+      } else {
+        showToast("Username or password is incorrect!", true);
+      }
+      return false;
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  </script>
+</body>
+</html>
